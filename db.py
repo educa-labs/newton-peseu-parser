@@ -15,7 +15,7 @@ class DB():
             self.conn.commit()
         except Exception as e:
             print(dbg, "Error al hacer la consulta: ", query, "\n", "Error: ", e)
-            raise Exception
+            raise Exception("Se cashooooo boludo")
         return
 
     def createTables(self):
