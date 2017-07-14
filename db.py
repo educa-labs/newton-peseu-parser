@@ -32,16 +32,16 @@ class DB():
         # Crear tabla estudiantes
         self.exec("""
             CREATE TABLE students(id serial primary key, 
-            rut text, name text, carrera text, universidad text)""")
+            rut text, name text, carrera text, universidad text, year int)""")
         # Crear tabla puntajes
         self.exec("""
             CREATE TABLE scores(id serial primary key,
             id_student int references students(id),
             mat int, len int, cie int, his int, nem int)""")
 
-    def insertStudents(self, filename):
+    def insert_students_2013(self, filename):
         """ 
-        InsertStudents: metodo para ir subiendo a los usuarios. Lee el 
+        insert_students_2013: metodo para ir subiendo a los usuarios. Lee el 
         nombre del archivo y va recorriendo el archivo.
         """
         # Agregar los estudiantes a la base de datos
@@ -51,8 +51,9 @@ class DB():
                 linea = linea.split(",")
                 # Agregar los alumnos con rut, nombre, carrera y universidad
                 self.exec("""
-                    INSERT INTO students(rut, name, carrera, universidad) 
-                    VALUES(%s,%s,%s,%s)""", linea[0], linea[1], linea[5].strip(), linea[4])
+                    INSERT INTO students(rut, name, carrera, universidad, year) 
+                    VALUES(%s,%s,%s,%s,%s)""", 
+                    linea[0], linea[1], linea[5].strip(), linea[4], 2013)
 
     def insert_students_2014(self, filename):
         """
@@ -65,8 +66,9 @@ class DB():
                 linea = linea.split(',')
                 # Agregar los alunos con rut, nombre, carrera y universidad
                 self.exec("""
-                    INSERT INTO students(rut, name, carrera, universidad)
-                    VALUES(%s,%s,%s,%s)""", None, linea[1], linea[3], linea[4].strip())
+                    INSERT INTO students(rut, name, carrera, universidad, year)
+                    VALUES(%s,%s,%s,%s,%s)""", 
+                    None, linea[0], linea[3], linea[4].strip(), 2014)
 
     def insertScore(self, ide, puntajes):
         """ 
@@ -88,7 +90,7 @@ class DB():
 
 if __name__ == "__main__":
     db = DB()
-    # db.createTables()
-    # db.insertStudents("usuarios")
+    db.createTables()
+    db.insert_students_2013("usuarios")
     db.insert_students_2014('usuarios_peseu_2014')
     db.conn.close()
