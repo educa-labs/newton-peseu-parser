@@ -59,7 +59,7 @@ class DB():
         Insert_students_2014: metodo para subir los usuarios del 2014. Lee el 
         nombre del archivo y lo recorre para ir subiendo los alumnos del año 2014.
         """
-        with open(filename + 'csv', 'r') as reader:
+        with open(filename + '.csv', 'r') as reader:
             reader.readline()
             for linea in reader:
                 linea = linea.split(',')
