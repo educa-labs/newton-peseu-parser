@@ -52,7 +52,7 @@ class DB():
                 # Agregar los alumnos con rut, nombre, carrera y universidad
                 self.exec("""
                     INSERT INTO students(rut, name, carrera, universidad) 
-                    VALUES(%s,%s)""", linea[0], linea[1], linea[5], linea[4])
+                    VALUES(%s,%s,%s,%s)""", linea[0], linea[1], linea[5], linea[4])
 
     def insertScore(self, ide, puntajes):
         """ 
