@@ -90,5 +90,5 @@ if __name__ == "__main__":
     db = DB()
     # db.createTables()
     # db.insertStudents("usuarios")
-    db.insert_students_2014('usuarios_peseu_2014.csv')
+    db.insert_students_2014('usuarios_peseu_2014')
     db.conn.close()
