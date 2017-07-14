@@ -17,11 +17,11 @@ if __name__  == "__main__":
     for alumno in db.cur_for:
         ide = alumno[0]
         rut = alumno[1]
-        print(alumno)
         print(DB.dbg, "ID alumno: {} - RUT: {}".format(ide,rut))
         try:
             # Subir los puntajes
         	ptjes = functions.getInfo(rut)
         	db.insertScore(ide, ptjes)
         except Exception as e:
+            # En el caso que no tenga puntajes
         	print(DB.dbg, "Error al procesar la informacion")

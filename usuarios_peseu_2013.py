@@ -47,7 +47,7 @@ headers = {
 }
 
 
-with open('usuarios.csv', 'w', newline='') as file:
+with open('usuarios_peseu_2013.csv', 'w', newline='') as file:
     escritor_csv = csv.writer(file, delimiter=',',
                               quotechar='|', quoting=csv.QUOTE_MINIMAL)
     # Iterar sobre  las universidades para conseguir carreras

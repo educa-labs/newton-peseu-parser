@@ -54,6 +54,20 @@ class DB():
                     INSERT INTO students(rut, name, carrera, universidad) 
                     VALUES(%s,%s,%s,%s)""", linea[0], linea[1], linea[5].strip(), linea[4])
 
+    def insert_students_2014(self, filename):
+        """
+        Insert_students_2014: metodo para subir los usuarios del 2014. Lee el 
+        nombre del archivo y lo recorre para ir subiendo los alumnos del año 2014.
+        """
+        with open(filename + 'csv', 'r') as reader:
+            reader.readline()
+            for linea in reader:
+                linea = linea.split(',')
+                # Agregar los alunos con rut, nombre, carrera y universidad
+                self.exec("""
+                    INSERT INTO students(rut, name, carrera, universidad)
+                    VALUES(%s,%s,%s,%s)""", None, linea[1], linea[3], linea[4].strip())
+
     def insertScore(self, ide, puntajes):
         """ 
         InsertScore: Metodo para subir los puntajes a la base de datos. Recibe 
@@ -74,6 +88,7 @@ class DB():
 
 if __name__ == "__main__":
     db = DB()
-    db.createTables()
-    db.insertStudents("usuarios")
+    # db.createTables()
+    # db.insertStudents("usuarios")
+    db.insert_students_2014('usuarios_peseu_2014.csv')
     db.conn.close()
