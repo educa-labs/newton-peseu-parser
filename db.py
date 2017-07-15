@@ -38,6 +38,10 @@ class DB():
             CREATE TABLE scores(id serial primary key,
             id_student int references students(id),
             mat int, len int, cie int, his int, nem int)""")
+        # Crear tabla postulaciones
+        self.exec("""
+            CREATE TABLE postulacion(id_student int references students(id),
+            carrera text, universidad text)""")
 
     def insert_students_2013(self, filename):
         """ 
@@ -84,6 +88,11 @@ class DB():
                     VALUES(%s,%s,%s,%s,%s)""",
                     None, linea[0], linea[4].strip(), linea[3], 2015)
 
+                self.cur.execute("""
+                    SELECT * FROM students WHERE name=%s;""",
+                    (linea[0],))
+                print(db.cur.fetchone()[0])
+
     def insertScore(self, ide, puntajes):
         """ 
         InsertScore: Metodo para subir los puntajes a la base de datos. Recibe 
@@ -105,7 +114,7 @@ class DB():
 if __name__ == "__main__":
     db = DB()
     db.createTables()
-    db.insert_students_2013("usuarios_peseu_2013")
+    # db.insert_students_2013("usuarios_peseu_2013")
     # db.insert_students_2014('usuarios_peseu_2014')
     db.insert_students_2015('usuarios_peseu_2015')
     db.conn.close()
