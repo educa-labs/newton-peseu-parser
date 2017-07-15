@@ -65,7 +65,7 @@ class DB():
                 # Agregar postulacion de alumno
                 self.cur.execute("""
                     SELECT * FROM students WHERE name=%s;""",
-                    (linea[0],))
+                    (linea[1],))
                 # Guardar el id del alumno recien subido
                 ide_alumno = self.cur.fetchone()[0]
                 # Guardar una postulacion del alumno
