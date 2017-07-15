@@ -56,7 +56,7 @@ class DB():
                 # Agregar los alumnos con rut, nombre, carrera y universidad
                 self.exec("""
                     INSERT INTO students(rut, name, year) 
-                    VALUES(%s,%s,%s,%s,%s)""", 
+                    VALUES(%s,%s,%s)""", 
                     linea[0], linea[1], 2013)
 
     def insert_students_2014(self, filename):
@@ -85,7 +85,7 @@ class DB():
                 linea = linea.split(',')
                 self.exec("""
                     INSERT INTO students(rut, name, year)
-                    VALUES(%s,%s,%s,%s,%s)""",
+                    VALUES(%s,%s,%s)""",
                     None, linea[0], 2015)
 
                 # Agregar postulacion de alumno
