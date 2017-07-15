@@ -80,8 +80,9 @@ class DB():
             for linea in reader:
                 linea = linea.split(',')
                 self.exec("""
-                    INSERT INTO students
-                    """)
+                    INSERT INTO students(rut, name, carrera, universidad, year)
+                    VALUES(%s,%s,%s,%s,%s)""",
+                    None, linea[0], linea[4].strip(), linea[3], 2015)
 
     def insertScore(self, ide, puntajes):
         """ 
