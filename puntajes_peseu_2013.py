@@ -1,6 +1,7 @@
 from lxml import html
 import requests
 import csv
+import random
 
 cookies = {
     '__utmt': '1',
@@ -23,32 +24,19 @@ headers = {
     'Connection': 'keep-alive',
 }
 
-datos_a_guardar = []
+def get_puntajes_2013(rut):
+    data = [
+        ('tipo', 'anteriores'),
+        ('rut', rut),
+        ('admision', '2013')
+    ]
 
-with open('prueba.csv', 'r') as file:
-    lector_csv = csv.DictReader(file)
-    for fila in lector_csv:
-        data = [
-            ('tipo', 'anteriores'),
-            ('rut', fila['rut']),
-            ('admision', '2013'),
-        ]
-        pagina = requests.post(
-            'http://www.peseu.com/busqueda', headers=headers, cookies=cookies, data=data)
-        tree_puntajes = html.fromstring(pagina.content)
-        puntajes_personas = tree_puntajes.xpath('//table/tr/td/text()')[2:]
-        # Agregar datos que igual son utiles para después
-        if len(puntajes_personas) > 0:
-            puntajes_personas.append(fila['puntaje'])
-            puntajes_personas.append(fila['carrera'] + ' - ' + fila['universidad'])
-            # Guardar en la variable final a pasar
-            datos_a_guardar.append(puntajes_personas)
-        print('[DEBUG] Se guardó un usuario con {} puntajes'.format(len(puntajes_personas)))
-        print('[DEBUG] Ya van {} personas guardadas'.format(len(datos_a_guardar)))
+    pagina = requests.post(
+        'http://www.peseu.com/busqueda', headers=headers, cookies=cookies, data=data)
+    tree_puntajes = html.fromstring(pagina.content)
+    puntajes_personas = tree_puntajes.xpath('//table/tr/td/text()')[2:]
 
-with open('data_puntajes.csv', 'w') as csvfile:
-    escritor_csv = csv.writer(csvfile, delimiter=',',
-                              quotechar='|', quoting=csv.QUOTE_MINIMAL)
-    for alumno in datos_a_guardar:
-        print('[DEBUG] Se guardó un usuario en archivo csv')
-        escritor_csv.writerow(alumno)
+    return puntajes_personas
+
+if __name__ == "__main__":
+    print(get_puntajes_2013("187206421"))
