@@ -42,6 +42,7 @@ class DB():
         self.exec("""
             CREATE TABLE postulacion(id_student int references students(id),
             carrera text, universidad text, year int)""")
+        self.conn.commit()
 
     def insert_students_2013(self, filename):
         """ 
@@ -59,6 +60,8 @@ class DB():
                     VALUES(%s,%s,%s)""", 
                     linea[0], linea[1], 2013)
 
+                self.conn.commit()
+
                 # Agregar postulacion de alumno
                 self.cur.execute("""
                     SELECT * FROM students WHERE name=%s;""",
@@ -70,6 +73,7 @@ class DB():
                     INSERT INTO postulacion(id_student, carrera, universidad, year)
                     VALUES(%s,%s,%s,%s)""",
                     (ide_alumno, linea[4].strip(), linea[3], 2013))
+                self.conn.commit()
 
 
     def insert_students_2014(self, filename):
@@ -100,6 +104,7 @@ class DB():
                     INSERT INTO students(rut, name, year)
                     VALUES(%s,%s,%s)""",
                     None, linea[0], 2015)
+                self.conn.commit()
 
                 # Agregar postulacion de alumno
                 self.cur.execute("""
@@ -112,6 +117,7 @@ class DB():
                     INSERT INTO postulacion(id_student, carrera, universidad, year)
                     VALUES(%s,%s,%s,%s)""",
                     (ide_alumno, linea[4].strip(), linea[3], 2015))
+                self.conn.commit()
 
     def insertScore(self, ide, puntajes):
         """ 
@@ -129,6 +135,7 @@ class DB():
             INSERT INTO scores(id_student, mat, len, cie, his, nem) 
             VALUES(%s,%s,%s,%s,%s,%s)""", 
             id_student, leng, mat, cie, his, nem)
+        self.conn.commit()
 
 
 if __name__ == "__main__":
