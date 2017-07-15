@@ -70,6 +70,19 @@ class DB():
                     VALUES(%s,%s,%s,%s,%s)""", 
                     None, linea[0], linea[3], linea[4].strip(), 2014)
 
+    def insert_students_2015(self, filename):
+        """
+        Insert_students_2015: metodo para subir los usuarios del 2015. Lee el 
+        nombre del archivo y lo recorre para ir subiendo los alumnos del 2015
+        """
+        with open(filename + '.csv', 'r') as reader:
+            reader.readline()
+            for linea in reader:
+                linea = linea.split(',')
+                self.exec("""
+                    INSERT INTO students
+                    """)
+
     def insertScore(self, ide, puntajes):
         """ 
         InsertScore: Metodo para subir los puntajes a la base de datos. Recibe 
