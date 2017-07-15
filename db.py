@@ -72,7 +72,7 @@ class DB():
                 self.cur.execute("""
                     INSERT INTO postulacion(id_student, carrera, universidad, year)
                     VALUES(%s,%s,%s,%s)""",
-                    (ide_alumno, linea[4].strip(), linea[3], 2013))
+                    (ide_alumno, linea[5].strip(), linea[4], 2013))
                 self.conn.commit()
 
 
