@@ -98,7 +98,7 @@ class DB():
                 self.cur.execute("""
                     INSERT INTO postulacion(id_student, carrera, universidad, year)
                     VALUES(%s,%s,%s,%s)""",
-                    ide_alumno, linea[4].strip(), linea[3], 2015)
+                    (ide_alumno, linea[4].strip(), linea[3], 2015))
 
     def insertScore(self, ide, puntajes):
         """ 
