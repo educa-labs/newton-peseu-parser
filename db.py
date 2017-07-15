@@ -64,7 +64,7 @@ class DB():
                     SELECT * FROM students WHERE name=%s;""",
                     (linea[0],))
                 # Guardar el id del alumno recien subido
-                ide_alumno = db.cur.fetchone()[0]
+                ide_alumno = self.cur.fetchone()[0]
                 # Guardar una postulacion del alumno
                 self.cur.execute("""
                     INSERT INTO postulacion(id_student, carrera, universidad, year)
@@ -106,7 +106,7 @@ class DB():
                     SELECT * FROM students WHERE name=%s;""",
                     (linea[0],))
                 # Guardar el id del alumno recien subido
-                ide_alumno = db.cur.fetchone()[0]
+                ide_alumno = self.cur.fetchone()[0]
                 # Guardar una postulacion del alumno
                 self.cur.execute("""
                     INSERT INTO postulacion(id_student, carrera, universidad, year)
