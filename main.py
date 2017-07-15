@@ -31,6 +31,9 @@ if __name__  == "__main__":
                 # En el 2013 solo se suben con el rut
                 ptjes = functions.getInfo(rut)
                 db.insertScore(ide, ptjes)
+            elif year == 2014:
+                # En el 2014 no hay datos
+                pass
             elif year == 2015:
                 # En el 2015 se necesita el nombre
                 nombre_tupla = obtener_tupla_nombre(nombre_alumno)

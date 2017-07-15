@@ -105,7 +105,7 @@ class DB():
 if __name__ == "__main__":
     db = DB()
     db.createTables()
-    # db.insert_students_2013("usuarios")
+    db.insert_students_2013("usuarios_peseu_2013")
     # db.insert_students_2014('usuarios_peseu_2014')
     db.insert_students_2015('usuarios_peseu_2015')
     db.conn.close()
