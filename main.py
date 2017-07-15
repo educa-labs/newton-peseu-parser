@@ -38,8 +38,9 @@ if __name__  == "__main__":
                 # En el 2015 se necesita el nombre
                 nombre_tupla = obtener_tupla_nombre(nombre_alumno)
                 ptjes = get_puntajes_2015(nombre_tupla)
-                print('Puntajes Encontrados: {}'.format(ptjes))
+                db.insertScore(ide, ptjes)
+
 
         except Exception as e:
             # En el caso que no tenga puntajes
-        	print(DB.dbg, "Error al procesar la informacion")
+        	print(DB.dbg, "Error al procesar la informacion: {}".format(e))

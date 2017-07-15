@@ -137,7 +137,6 @@ class DB():
             id_student, leng, mat, cie, his, nem)
         self.conn.commit()
 
-
 if __name__ == "__main__":
     db = DB()
     db.createTables()
