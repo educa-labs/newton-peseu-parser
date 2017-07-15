@@ -59,6 +59,19 @@ class DB():
                     VALUES(%s,%s,%s)""", 
                     linea[0], linea[1], 2013)
 
+                # Agregar postulacion de alumno
+                self.cur.execute("""
+                    SELECT * FROM students WHERE name=%s;""",
+                    (linea[0],))
+                # Guardar el id del alumno recien subido
+                ide_alumno = db.cur.fetchone()[0]
+                # Guardar una postulacion del alumno
+                self.cur.execute("""
+                    INSERT INTO postulacion(id_student, carrera, universidad, year)
+                    VALUES(%s,%s,%s,%s)""",
+                    (ide_alumno, linea[4].strip(), linea[3], 2013))
+
+
     def insert_students_2014(self, filename):
         """
         Insert_students_2014: metodo para subir los usuarios del 2014. Lee el 
