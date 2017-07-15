@@ -27,12 +27,12 @@ class DB():
 
     def createTables(self):
         # Eliminar tablas
-        self.cur.execute("DROP TABLE IF EXISTS students, scores, postulaciones")
+        self.cur.execute("DROP TABLE IF EXISTS students, scores, postulacion")
         self.conn.commit()
         # Crear tabla estudiantes
         self.exec("""
             CREATE TABLE students(id serial primary key, 
-            rut text, name text, carrera text, universidad text, year int)""")
+            rut text, name text, year int)""")
         # Crear tabla puntajes
         self.exec("""
             CREATE TABLE scores(id serial primary key,
@@ -41,7 +41,7 @@ class DB():
         # Crear tabla postulaciones
         self.exec("""
             CREATE TABLE postulacion(id_student int references students(id),
-            carrera text, universidad text)""")
+            carrera text, universidad text, year int)""")
 
     def insert_students_2013(self, filename):
         """ 
@@ -55,9 +55,9 @@ class DB():
                 linea = linea.split(",")
                 # Agregar los alumnos con rut, nombre, carrera y universidad
                 self.exec("""
-                    INSERT INTO students(rut, name, carrera, universidad, year) 
+                    INSERT INTO students(rut, name, year) 
                     VALUES(%s,%s,%s,%s,%s)""", 
-                    linea[0], linea[1], linea[5].strip(), linea[4], 2013)
+                    linea[0], linea[1], 2013)
 
     def insert_students_2014(self, filename):
         """
@@ -84,14 +84,21 @@ class DB():
             for linea in reader:
                 linea = linea.split(',')
                 self.exec("""
-                    INSERT INTO students(rut, name, carrera, universidad, year)
+                    INSERT INTO students(rut, name, year)
                     VALUES(%s,%s,%s,%s,%s)""",
-                    None, linea[0], linea[4].strip(), linea[3], 2015)
+                    None, linea[0], 2015)
 
+                # Agregar postulacion de alumno
                 self.cur.execute("""
                     SELECT * FROM students WHERE name=%s;""",
                     (linea[0],))
-                print(db.cur.fetchone()[0])
+                # Guardar el id del alumno recien subido
+                ide_alumno = db.cur.fetchone()[0]
+                # Guardar una postulacion del alumno
+                self.cur.execute("""
+                    INSERT INTO postulacion(id_student, carrera, universidad, year)
+                    VALUES(%s,%s,%s,%s)""",
+                    ide_alumno, linea[4].strip(), linea[3], 2015)
 
     def insertScore(self, ide, puntajes):
         """ 

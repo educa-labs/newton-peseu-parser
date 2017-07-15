@@ -23,7 +23,7 @@ if __name__  == "__main__":
         ide = alumno[0]
         rut = alumno[1]
         nombre_alumno = alumno[2]
-        year = alumno[5]
+        year = alumno[3]
         print(DB.dbg, "ID alumno: {} - RUT: {}".format(ide,rut))
         try:
             # Subir puntajes depende del año
