@@ -49,32 +49,36 @@ class DB():
         insert_students_2013: metodo para ir subiendo a los usuarios. Lee el 
         nombre del archivo y va recorriendo el archivo.
         """
-        # Agregar los estudiantes a la base de datos
         with open(filename+".csv", "r") as reader:
             reader.readline()
             for linea in reader:
                 linea = linea.split(",")
-                # Agregar los alumnos con rut, nombre, carrera y universidad
-                self.exec("""
-                    INSERT INTO students(rut, name, year) 
-                    VALUES(%s,%s,%s)""", 
-                    linea[0], linea[1], 2013)
+                # Agregar solo si está en lista de seleccionados:
+                if linea[3] = 'EN LISTA DE SELECCIONADOS':
+                    # Agregar los alumnos con rut, nombre, carrera y universidad
+                    self.exec("""
+                        INSERT INTO students(rut, name, year) 
+                        VALUES(%s,%s,%s)""", 
+                        linea[0], linea[1], 2013)
 
-                self.conn.commit()
+                    self.conn.commit()
 
-                # Agregar postulacion de alumno
-                self.cur.execute("""
-                    SELECT * FROM students WHERE name=%s;""",
-                    (linea[1],))
-                # Guardar el id del alumno recien subido
-                ide_alumno = self.cur.fetchone()[0]
-                # Guardar una postulacion del alumno
-                self.cur.execute("""
-                    INSERT INTO postulacion(id_student, carrera, universidad, year)
-                    VALUES(%s,%s,%s,%s)""",
-                    (ide_alumno, linea[5].strip(), linea[4], 2013))
-                self.conn.commit()
+                    # Agregar postulacion de alumno
+                    self.cur.execute("""
+                        SELECT * FROM students WHERE name=%s;""",
+                        (linea[1],))
+                    # Guardar el id del alumno recien subido
+                    ide_alumno = self.cur.fetchone()[0]
+                    # Guardar una postulacion del alumno
+                    self.cur.execute("""
+                        INSERT INTO postulacion(id_student, carrera, universidad, year)
+                        VALUES(%s,%s,%s,%s)""",
+                        (ide_alumno, linea[5].strip(), linea[4], 2013))
+                    self.conn.commit()
 
+                # No agregar si no está en lista de seleccionados
+                else:
+                    print('[DEBUG] No se agregará postulación porque no quedó en lista de seleccionados.')
 
     def insert_students_2014(self, filename):
         """
@@ -100,24 +104,31 @@ class DB():
             reader.readline()
             for linea in reader:
                 linea = linea.split(',')
-                self.exec("""
-                    INSERT INTO students(rut, name, year)
-                    VALUES(%s,%s,%s)""",
-                    None, linea[0], 2015)
-                self.conn.commit()
+                # Agregar solo si está en lista de seleccionados
+                if linea[2] == 'EN LISTA DE SELECCIONADOS':
+                    self.exec("""
+                        INSERT INTO students(rut, name, year)
+                        VALUES(%s,%s,%s)""",
+                        None, linea[0], 2015)
+                    self.conn.commit()
 
-                # Agregar postulacion de alumno
-                self.cur.execute("""
-                    SELECT * FROM students WHERE name=%s;""",
-                    (linea[0],))
-                # Guardar el id del alumno recien subido
-                ide_alumno = self.cur.fetchone()[0]
-                # Guardar una postulacion del alumno
-                self.cur.execute("""
-                    INSERT INTO postulacion(id_student, carrera, universidad, year)
-                    VALUES(%s,%s,%s,%s)""",
-                    (ide_alumno, linea[4].strip(), linea[3], 2015))
-                self.conn.commit()
+                    # Agregar postulacion de alumno
+                    self.cur.execute("""
+                        SELECT * FROM students WHERE name=%s;""",
+                        (linea[0],))
+                    # Guardar el id del alumno recien subido
+                    ide_alumno = self.cur.fetchone()[0]
+                    # Guardar una postulacion del alumno
+                    self.cur.execute("""
+                        INSERT INTO postulacion(id_student, carrera, universidad, year)
+                        VALUES(%s,%s,%s,%s)""",
+                        (ide_alumno, linea[4].strip(), linea[3], 2015))
+                    self.conn.commit()
+
+                # No agregar si no está en lista de seleccionados
+                else:
+                    print('[DEBUG] No se agregará postulación porque no quedó en lista de seleccionados.')
+
 
     def insertScore(self, ide, puntajes):
         """ 
@@ -135,20 +146,6 @@ class DB():
             INSERT INTO scores(id_student, mat, len, cie, his, nem) 
             VALUES(%s,%s,%s,%s,%s,%s)""", 
             id_student, leng, mat, cie, his, nem)
-
-    def insert_300_weoncitos(self, weoncitos):
-        for weoncito in weoncitos:
-            ide = weoncito[0]
-            leng = int(weoncito[0])
-            mat = int(weoncito[0])
-            cie = int(weoncito[0])
-            his = int(weoncito[0])
-            nem = int(weoncito[0])
-
-            self.cur.execute("""
-                INSERT INTO scores(id_student, mat, len, cie, his, nem)
-                VALUES (%s,%s,%s,%s,%s,%s)""",
-                ide, leng, mat, cie, his, nem)
 
 if __name__ == "__main__":
     db = DB()
