@@ -30,23 +30,23 @@ if __name__  == "__main__":
             # Subir puntajes depende del año
             if year == 2013:
                 # En el 2013 solo se suben con el rut
-                ptjes = functions.getInfo(rut)
                 inicio = time.time()
-                db.insertScore(ide, ptjes)
+                ptjes = functions.getInfo(rut)
                 final = time.time()
                 print("[DEBUG] Se está demorando: {}".format((final - inicio)))
+                db.insertScore(ide, ptjes)
             elif year == 2014:
                 # En el 2014 no hay datos
                 pass
             elif year == 2015:
                 # En el 2015 se necesita el nombre
+                inicio = time.time()
                 nombre_tupla = obtener_tupla_nombre(nombre_alumno)
                 ptjes = get_puntajes_2015(nombre_tupla)
-                inicio = time.time()
-                db.insertScore(ide, ptjes)
                 final = time.time()
                 print("[DEBUG] Se está demorando: {}".format((final - inicio)))
-
+                db.insertScore(ide, ptjes)
+                
 
         except Exception as e:
             # En el caso que no tenga puntajes
