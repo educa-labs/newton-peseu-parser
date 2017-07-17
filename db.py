@@ -54,7 +54,7 @@ class DB():
             for linea in reader:
                 linea = linea.split(",")
                 # Agregar solo si está en lista de seleccionados:
-                if linea[3] = 'EN LISTA DE SELECCIONADOS':
+                if linea[3] == 'EN LISTA DE SELECCIONADOS':
                     # Agregar los alumnos con rut, nombre, carrera y universidad
                     self.exec("""
                         INSERT INTO students(rut, name, year) 
