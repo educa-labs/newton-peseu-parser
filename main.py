@@ -30,6 +30,7 @@ if __name__  == "__main__":
             # Subir puntajes depende del año
             if year == 2013:
                 # En el 2013 solo se suben con el rut
+                time.sleep(3)
                 inicio = time.time()
                 ptjes = functions.getInfo(rut)
                 final = time.time()
@@ -40,6 +41,7 @@ if __name__  == "__main__":
                 pass
             elif year == 2015:
                 # En el 2015 se necesita el nombre
+                time.sleep(3)
                 inicio = time.time()
                 nombre_tupla = obtener_tupla_nombre(nombre_alumno)
                 ptjes = get_puntajes_2015(nombre_tupla)
