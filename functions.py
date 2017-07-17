@@ -44,6 +44,5 @@ def getInfo(rut):
         # datos_a_guardar.append(puntajes_personas)
     return puntajes_personas
 
-
 if __name__ == "__main__":
     print(getInfo("187206421"))
