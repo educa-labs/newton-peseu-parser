@@ -2,6 +2,7 @@ import functions
 from puntajes_peseu_2015 import (obtener_tupla_nombre, 
                                 get_puntajes_2015)
 import db as DB
+import time
 
 if __name__  == "__main__":
     db = DB.DB()
@@ -30,7 +31,10 @@ if __name__  == "__main__":
             if year == 2013:
                 # En el 2013 solo se suben con el rut
                 ptjes = functions.getInfo(rut)
+                inicio = time.time()
                 db.insertScore(ide, ptjes)
+                final = time.time()
+                print("[DEBUG] Se está demorando: {}".format((final - inicio)))
             elif year == 2014:
                 # En el 2014 no hay datos
                 pass
@@ -38,7 +42,10 @@ if __name__  == "__main__":
                 # En el 2015 se necesita el nombre
                 nombre_tupla = obtener_tupla_nombre(nombre_alumno)
                 ptjes = get_puntajes_2015(nombre_tupla)
+                inicio = time.time()
                 db.insertScore(ide, ptjes)
+                final = time.time()
+                print("[DEBUG] Se está demorando: {}".format((final - inicio)))
 
 
         except Exception as e:
