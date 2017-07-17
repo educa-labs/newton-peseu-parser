@@ -135,7 +135,20 @@ class DB():
             INSERT INTO scores(id_student, mat, len, cie, his, nem) 
             VALUES(%s,%s,%s,%s,%s,%s)""", 
             id_student, leng, mat, cie, his, nem)
-        self.conn.commit()
+
+    def insert_300_weoncitos(self, weoncitos):
+        for weoncito in weoncitos:
+            ide = weoncito[0]
+            leng = int(weoncito[0])
+            mat = int(weoncito[0])
+            cie = int(weoncito[0])
+            his = int(weoncito[0])
+            nem = int(weoncito[0])
+
+            self.cur.execute("""
+                INSERT INTO scores(id_student, mat, len, cie, his, nem)
+                VALUES (%s,%s,%s,%s,%s,%s)""",
+                ide, leng, mat, cie, his, nem)
 
 if __name__ == "__main__":
     db = DB()
