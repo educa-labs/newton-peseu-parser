@@ -14,7 +14,7 @@ if __name__  == "__main__":
     # Si hay ultimo usuario se fija en ese
     if max_id:
         db.cur_for.execute("""
-            SELECT * FROM students WHERE id > 5376 AND id < 90692;
+            SELECT * FROM students WHERE id > 23743 AND id < 90692;
             """)
     ################################
     # CONSULTA ANTIGUA
